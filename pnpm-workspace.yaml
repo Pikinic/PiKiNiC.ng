@@ -1,0 +1,7 @@
+allowBuilds:
+  sharp: false
+  unrs-resolver: false
+
+networkTimeout: 600000
+networkConcurrency: 4
+fetchRetries: 8
