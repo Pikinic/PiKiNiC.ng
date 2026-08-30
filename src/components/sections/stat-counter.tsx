@@ -6,7 +6,17 @@ function easeOutExpo(t: number) {
   return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
 }
 
-export function StatCounter({ value, duration = 1600 }: { value: string; duration?: number }) {
+export function StatCounter({
+  value,
+  prefix = "",
+  suffix = "",
+  duration = 1600,
+}: {
+  value: string;
+  prefix?: string;
+  suffix?: string;
+  duration?: number;
+}) {
   const target = Number(value.replace(/[^0-9]/g, ""));
   const [display, setDisplay] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
@@ -36,5 +46,11 @@ export function StatCounter({ value, duration = 1600 }: { value: string; duratio
     return () => observer.disconnect();
   }, [target, duration]);
 
-  return <span ref={ref}>{display.toLocaleString()}+</span>;
+  return (
+    <span ref={ref}>
+      {prefix}
+      {display.toLocaleString()}
+      {suffix}
+    </span>
+  );
 }

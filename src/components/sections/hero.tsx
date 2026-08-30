@@ -24,38 +24,42 @@ export function Hero() {
           />
         </svg>
 
-        <h1 className="relative z-10 mt-7 max-w-3xl text-5xl font-bold uppercase leading-[0.95] tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">
+        <h1 className="relative z-10 mt-7 w-full max-w-none text-4xl font-bold uppercase leading-[0.95] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
           <span className="reveal block" style={{ animationDelay: "0.1s" }}>
-            We handle
+            We handle the journey.
           </span>
-          <span className="reveal relative inline-block text-green-700" style={{ animationDelay: "0.25s" }}>
-            the journey
-            <svg
-              className="absolute -bottom-1 left-0 w-full sm:-bottom-2"
-              viewBox="0 0 400 20"
-              fill="none"
-              preserveAspectRatio="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M2 14C60 6 140 4 200 8C260 12 340 14 398 6"
-                stroke="currentColor"
-                strokeWidth="4"
-                strokeLinecap="round"
-                className="draw-underline"
-                style={{ animationDelay: "0.9s" }}
-              />
-            </svg>
+          <span className="reveal block" style={{ animationDelay: "0.25s" }}>
+            You enjoy the{" "}
+            <span className="relative inline-block text-green-700">
+              destination.
+              <svg
+                className="absolute -bottom-1 left-0 w-full sm:-bottom-2"
+                viewBox="0 0 400 20"
+                fill="none"
+                preserveAspectRatio="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M2 14C60 6 140 4 200 8C260 12 340 14 398 6"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                  strokeLinecap="round"
+                  className="draw-underline"
+                  style={{ animationDelay: "0.9s" }}
+                />
+              </svg>
+            </span>
           </span>
         </h1>
 
         <p
-          className="reveal mt-6 max-w-md text-base text-text-secondary sm:text-lg"
+          className="reveal mt-6 max-w-3xl text-base text-text-secondary sm:text-lg"
           style={{ animationDelay: "0.4s" }}
         >
-          From vetted schools abroad to curated tours and reliable rides at
-          home — Pikinic is the one ecosystem behind every step of your
-          journey.
+          Whether you&apos;re booking a flight, finding a place to stay,
+          studying abroad, or
+          <br className="hidden sm:block" /> planning your next move.
+          PIKINIC is the team behind every part of your journey.
         </p>
 
         <div className="reveal mt-8 flex flex-wrap items-center justify-center gap-5" style={{ animationDelay: "0.5s" }}>
@@ -65,17 +69,13 @@ export function Hero() {
         </div>
 
         <div className="reveal mt-16 w-full" style={{ animationDelay: "0.65s" }}>
-        
           <div className="scroll-close relative aspect-video w-full origin-bottom overflow-hidden rounded-[2px] border border-border-primary">
+            {/* Placeholder fill until a real hero image/video lands here.
+                To wire one in: add `import Image from "next/image"` above,
+                then drop `<Image src="/images/<file>" alt="..." fill
+                sizes="100vw" className="object-cover" priority />` inside
+                this div, after the gradient (or in place of it). */}
             <div className="mesh-gradient mesh-glow absolute inset-0" />
-            <video
-              className="absolute inset-0 h-full w-full object-cover"
-              src="/videos/brand-explainer.mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
-            />
           </div>
         </div>
       </Container>

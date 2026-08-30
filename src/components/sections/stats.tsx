@@ -1,7 +1,9 @@
 import { Container } from "@/components/ui/container";
+import { PathwayMark } from "@/components/ui/pathway-mark";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { StatCounter } from "@/components/sections/stat-counter";
 import { stats } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 
 export function Stats() {
   return (
@@ -23,12 +25,32 @@ export function Stats() {
             {stats.map((stat) => (
               <div
                 key={stat.label}
-                className="group flex aspect-square flex-col items-center justify-center gap-2 border-b border-r border-border-primary p-6 text-center transition-colors hover:bg-neutral-900/[0.03]"
+                className={cn(
+                  "group relative flex flex-col items-center justify-center gap-2 overflow-hidden border-b border-r border-border-primary px-6 py-10 text-center transition-colors sm:py-12",
+                  stat.accent
+                    ? "bg-green-800"
+                    : "hover:bg-neutral-900/[0.03]"
+                )}
               >
-                <dd className="text-4xl font-bold tracking-tight text-text-primary transition-colors group-hover:text-green-700 sm:text-5xl">
-                  <StatCounter value={stat.value} />
+                {stat.accent && (
+                  <PathwayMark className="pointer-events-none absolute -bottom-6 -right-6 h-32 w-32 text-neutral-0/10" />
+                )}
+                <dd
+                  className={cn(
+                    "relative text-4xl font-bold tracking-tight transition-colors sm:text-5xl",
+                    stat.accent
+                      ? "text-neutral-0"
+                      : "text-text-primary group-hover:text-green-700"
+                  )}
+                >
+                  <StatCounter value={stat.value} prefix={stat.prefix} suffix={stat.suffix} />
                 </dd>
-                <dt className="text-xs font-semibold uppercase tracking-widest text-text-tertiary sm:text-sm">
+                <dt
+                  className={cn(
+                    "relative text-xs font-semibold uppercase tracking-widest sm:text-sm",
+                    stat.accent ? "text-neutral-0/70" : "text-text-tertiary"
+                  )}
+                >
                   {stat.label}
                 </dt>
               </div>

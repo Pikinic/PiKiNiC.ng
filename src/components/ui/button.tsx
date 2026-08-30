@@ -27,7 +27,7 @@ const sizeClasses: Record<ButtonSize, string> = {
 
 const spanClasses:Record<ButtonVariant, string> = {
   primary:"bg-white text-green-700 ",
-  secondary:"bg-green-700 text-white"
+  secondary:"bg-green-700 text-white group-hover:bg-white group-hover:text-green-700"
 }
 
 const spanSizeClasses: Record<ButtonSize, string> = {
@@ -38,14 +38,14 @@ const spanSizeClasses: Record<ButtonSize, string> = {
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = "primary", size = "md", href, children, ...props }, ref) => {
     const classes = cn(
-      "flex items-center justify-between  gap-[28px]  rounded-[2px] font-semibold uppercase tracking-wide transition-colors disabled:opacity-50 disabled:pointer-events-none",
+      "group flex items-center justify-between  gap-[28px]  rounded-[2px] font-semibold uppercase tracking-wide transition-colors disabled:opacity-50 disabled:pointer-events-none",
       variantClasses[variant],
       sizeClasses[size],
       className
     );
 
     const spanClass = cn(
-      "flex items-center justify-center rounded-[4px]",
+      "flex items-center justify-center rounded-[4px] transition-colors",
       spanClasses[variant],
       spanSizeClasses[size]
     );

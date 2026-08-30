@@ -65,6 +65,16 @@ export function ServiceSection({ service, reverse }: { service: Service; reverse
             </div>
 
             <div className="mt-10 md:mt-0">
+              {service.tagline && (
+                <h3
+                  className={cn(
+                    "mb-3 text-lg font-bold uppercase leading-tight tracking-tight sm:text-xl",
+                    isDark ? "text-green-400" : "text-green-700"
+                  )}
+                >
+                  {service.tagline}
+                </h3>
+              )}
               <p
                 className={cn(
                   "max-w-md text-base leading-relaxed",

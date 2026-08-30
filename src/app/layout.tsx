@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
+import { CustomCursor } from "@/components/ui/custom-cursor";
 import { siteConfig } from "@/lib/constants";
 import "./globals.css";
 
@@ -31,6 +32,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${outfit.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col  text-text-primary">
+        <CustomCursor />
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />

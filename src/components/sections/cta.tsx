@@ -23,16 +23,15 @@ export function Cta() {
 
       <Container className="relative flex flex-col items-center text-center">
         <ScrollReveal className="flex flex-col items-center">
-          <h2 className="max-w-3xl text-5xl font-bold uppercase leading-[0.95] tracking-tight sm:text-6xl md:text-7xl">
-            Let&rsquo;s get you
+          <h2 className="w-full max-w-none text-4xl font-bold uppercase leading-[0.95] tracking-tight sm:text-6xl md:text-7xl">
+            Where do you want to
             <br />
-            <span className="text-green-400">started.</span>
+            <span className="text-green-400">go?</span>
           </h2>
 
           <p className="mt-6 max-w-md text-base leading-relaxed text-green-100/80 sm:text-lg">
-            Tell us where you&rsquo;re headed — school, holiday, or a new
-            place to call home — and we&rsquo;ll handle the rest of the
-            journey with you.
+            Tell us what you need and we&rsquo;ll point you in the right
+            direction. No pressure. No fees. Just the right next step.
           </p>
 
           <div className="mt-10 flex flex-wrap items-center justify-center gap-5">

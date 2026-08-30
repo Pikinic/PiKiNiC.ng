@@ -30,19 +30,17 @@ export function Intro() {
           <div>
          
             <h2 className="mt-4 text-4xl font-bold uppercase leading-[0.95] tracking-tight text-text-primary sm:text-5xl md:text-6xl">
-              Everything you
+              Every part of
               <br />
-              need for the
-              <br />
-              <span className="text-green-700">journey.</span>
+              your <span className="text-green-700">journey.</span>
             </h2>
           </div>
 
           <div className="flex flex-col justify-end gap-8">
             <p className="text-lg leading-relaxed text-text-secondary md:text-xl">
-              We plan every leg of the trip so you can focus on the moment.
-              From bookings to logistics, our team handles the details before
-              you arrive.
+              Four arms. One promise. No matter what stage you&rsquo;re at,
+              PiKiNiC has a service built for exactly where you&rsquo;re
+              going.
             </p>
             <Link
               href="#study-abroad"

@@ -2,7 +2,9 @@ import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { NewsletterForm } from "@/components/ui/newsletter-form";
 import { SocialIcon } from "@/components/ui/social-icon";
-import { footerColumns, siteConfig, socialLinks } from "@/lib/constants";
+import { footerColumns, serviceSocialLinks, siteConfig, socialLinks } from "@/lib/constants";
+
+const servicePlatforms = serviceSocialLinks[0]?.links.map((link) => link.icon) ?? [];
 
 export function Footer() {
   return (
@@ -18,10 +20,19 @@ export function Footer() {
               <p>{siteConfig.address}</p>
               <Link
                 href={`mailto:${siteConfig.email}`}
-                className="transition-colors hover:text-text-inverse"
+                className="block transition-colors hover:text-text-inverse"
               >
                 {siteConfig.email}
               </Link>
+              {siteConfig.phones.map((phone) => (
+                <Link
+                  key={phone}
+                  href={`tel:${phone.replace(/\s+/g, "")}`}
+                  className="block transition-colors hover:text-text-inverse"
+                >
+                  {phone}
+                </Link>
+              ))}
             </div>
 
             <div className="flex gap-3">
@@ -72,6 +83,51 @@ export function Footer() {
               </ul>
             </nav>
           ))}
+        </div>
+
+        <div className="mt-16 border-t border-neutral-800 pt-12">
+          <h3 className="text-xs font-semibold uppercase tracking-wide text-neutral-400">
+            Follow Along
+          </h3>
+
+          <div className="mt-6 overflow-x-auto">
+            <div
+              className="grid min-w-[440px] border-l border-t border-neutral-800"
+              style={{
+                gridTemplateColumns: `minmax(0,1fr) repeat(${servicePlatforms.length}, 56px)`,
+              }}
+            >
+              <div className="border-b border-r border-neutral-800" />
+              {servicePlatforms.map((platform) => (
+                <div
+                  key={platform}
+                  className="flex items-center justify-center border-b border-r border-neutral-800 p-3 text-neutral-500"
+                >
+                  <SocialIcon icon={platform} className="h-4 w-4" />
+                </div>
+              ))}
+
+              {serviceSocialLinks.map((service) => (
+                <div key={service.name} className="contents">
+                  <div className="flex items-center border-b border-r border-neutral-800 p-3 text-xs uppercase tracking-widest text-neutral-300">
+                    {service.name}
+                  </div>
+                  {service.links.map((social) => (
+                    <Link
+                      key={social.label}
+                      href={social.href}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      aria-label={`${service.name} on ${social.label}`}
+                      className="flex items-center justify-center border-b border-r border-neutral-800 p-3 text-neutral-400 transition-colors hover:bg-neutral-900/40 hover:text-green-400"
+                    >
+                      <SocialIcon icon={social.icon} className="h-4 w-4" />
+                    </Link>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </Container>
 
