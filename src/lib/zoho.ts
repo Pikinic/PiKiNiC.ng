@@ -1,3 +1,5 @@
+import { requireEnv } from "@/lib/env";
+
 type TokenCacheEntry = { accessToken: string; expiresAt: number };
 
 const tokenCache = new Map<string, TokenCacheEntry>();
@@ -33,15 +35,6 @@ async function getAccessToken(
   });
 
   return data.access_token as string;
-}
-
-function requireEnv(...names: string[]) {
-  const values = names.map((name) => process.env[name]);
-  const missing = names.filter((_, i) => !values[i]);
-  if (missing.length > 0) {
-    throw new Error(`Missing Zoho environment variables: ${missing.join(", ")}`);
-  }
-  return values as string[];
 }
 
 export async function getZohoCrmAccessToken() {

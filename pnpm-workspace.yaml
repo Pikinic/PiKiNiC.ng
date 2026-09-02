@@ -1,7 +1,14 @@
-allowBuilds:
-  sharp: false
-  unrs-resolver: false
+onlyBuiltDependencies:
+  - '@prisma/engines'
+  - esbuild
+  - msgpackr-extract
+  - prisma
+  - workerd
 
 networkTimeout: 600000
 networkConcurrency: 4
 fetchRetries: 8
+allowBuilds:
+  '@prisma/engines': true
+  esbuild: true
+  prisma: true

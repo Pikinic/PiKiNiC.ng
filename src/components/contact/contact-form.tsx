@@ -76,6 +76,7 @@ export function ContactForm() {
   }
 
   function handleBlur(e: FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
+    if (!e.currentTarget) return;
     const field = e.currentTarget.name as FieldKey;
     setTouched((prev) => ({ ...prev, [field]: true }));
     revalidate();

@@ -1,0 +1,113 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+enum BlogCategory {
+  TravelTips           @map("Travel Tips")
+  VisaAndDocumentation @map("Visa & Documentation")
+  MoneyAndFares        @map("Money & Fares")
+  DestinationGuides    @map("Destination Guides")
+}
+
+enum BlogPostStatus {
+  draft
+  published
+}
+
+model BlogPost {
+  slug        String         @id
+  title       String
+  excerpt     String
+  category    BlogCategory
+  author      String
+  publishedAt DateTime
+  readTime    String
+  content     Json
+  imageUrl    String
+  status      BlogPostStatus @default(draft)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+model FlightOffer {
+  id        String   @id @default(cuid())
+  from      String
+  fromCode  String
+  to        String
+  toCode    String
+  price     Int
+  tripType  String
+  stops     Int
+  imageUrl  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum PackageCategory {
+  Domestic
+  International
+  Beach
+  CityBreak @map("City Break")
+  Family
+  Business
+}
+
+model TravelPackage {
+  slug         String            @id
+  destination  String
+  country      String
+  name         String
+  categories   PackageCategory[]
+  priceFrom    Int
+  duration     String
+  availability String
+  summary      String
+  headline     String
+  description  String[]
+  included     String[]
+  excluded     String[]
+  itinerary    Json?
+  imageUrls    String[]
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+}
+
+model Webinar {
+  slug              String   @id
+  title             String
+  tagline           String
+  coverImageUrl     String
+  dateTime          DateTime
+  host              String
+  description       String
+  agenda            Json?
+  registrationLabel String
+  registrationUrl   String
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model MediaItem {
+  id         String   @id @default(cuid())
+  url        String
+  name       String
+  publicId   String?
+  width      Int?
+  height     Int?
+  bytes      Int?
+  uploadedAt DateTime @default(now())
+}

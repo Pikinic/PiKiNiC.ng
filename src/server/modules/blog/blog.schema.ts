@@ -1,0 +1,40 @@
+import { z } from "zod";
+
+export const blogCategorySchema = z.enum([
+  "Travel Tips",
+  "Visa & Documentation",
+  "Money & Fares",
+  "Destination Guides",
+]);
+
+export const blogPostStatusSchema = z.enum(["draft", "published"]);
+
+const textBlockSchema = z.object({
+  id: z.string().min(1),
+  type: z.enum(["h1", "h2", "h3", "paragraph"]),
+  text: z.string(),
+});
+
+const imageBlockSchema = z.object({
+  id: z.string().min(1),
+  type: z.literal("image"),
+  url: z.string().min(1),
+  caption: z.string().optional(),
+});
+
+export const blogContentBlockSchema = z.union([textBlockSchema, imageBlockSchema]);
+
+export const blogPostInputSchema = z.object({
+  slug: z.string().min(1),
+  title: z.string().min(1),
+  excerpt: z.string().min(1),
+  category: blogCategorySchema,
+  author: z.string().min(1),
+  publishedAt: z.string().min(1),
+  readTime: z.string().min(1),
+  content: z.array(blogContentBlockSchema),
+  imageUrl: z.string(),
+  status: blogPostStatusSchema,
+});
+
+export const blogPostUpdateSchema = blogPostInputSchema.partial().omit({ slug: true });

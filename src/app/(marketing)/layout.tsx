@@ -4,7 +4,7 @@ import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { CustomCursor } from "@/components/ui/custom-cursor";
 import { siteConfig } from "@/lib/constants";
-import "./globals.css";
+import "../globals.css";
 
 const outfit = Outfit({
   variable: "--font-outfit",
