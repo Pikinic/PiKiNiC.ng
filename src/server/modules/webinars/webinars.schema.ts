@@ -5,6 +5,16 @@ const webinarAgendaItemSchema = z.object({
   title: z.string().min(1),
 });
 
+const webinarMetricSchema = z.object({
+  label: z.string().min(1),
+  value: z.string().min(1),
+});
+
+const webinarTestimonialSchema = z.object({
+  name: z.string().min(1),
+  quote: z.string().min(1),
+});
+
 export const webinarInputSchema = z.object({
   slug: z.string().min(1),
   title: z.string().min(1),
@@ -14,6 +24,8 @@ export const webinarInputSchema = z.object({
   host: z.string().min(1),
   description: z.string().min(1),
   agenda: z.array(webinarAgendaItemSchema).optional(),
+  metrics: z.array(webinarMetricSchema).optional(),
+  testimonials: z.array(webinarTestimonialSchema).optional(),
   registrationLabel: z.string().min(1),
   registrationUrl: z.string().min(1),
 });

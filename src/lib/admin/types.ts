@@ -79,6 +79,16 @@ export type WebinarAgendaItem = {
   title: string;
 };
 
+export type WebinarMetric = {
+  label: string;
+  value: string;
+};
+
+export type WebinarTestimonial = {
+  name: string;
+  quote: string;
+};
+
 export type Webinar = {
   slug: string;
   title: string;
@@ -88,6 +98,8 @@ export type Webinar = {
   host: string;
   description: string;
   agenda?: WebinarAgendaItem[];
+  metrics?: WebinarMetric[];
+  testimonials?: WebinarTestimonial[];
   registrationLabel: string;
   registrationUrl: string;
 };

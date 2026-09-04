@@ -17,6 +17,8 @@ export async function createWebinar(input: unknown) {
       ...data,
       dateTime: new Date(data.dateTime),
       agenda: data.agenda ? (data.agenda as Prisma.InputJsonValue) : undefined,
+      metrics: data.metrics ? (data.metrics as Prisma.InputJsonValue) : undefined,
+      testimonials: data.testimonials ? (data.testimonials as Prisma.InputJsonValue) : undefined,
     },
   });
 }
@@ -29,6 +31,8 @@ export async function updateWebinar(slug: string, input: unknown) {
       ...data,
       dateTime: data.dateTime ? new Date(data.dateTime) : undefined,
       agenda: data.agenda ? (data.agenda as Prisma.InputJsonValue) : undefined,
+      metrics: data.metrics ? (data.metrics as Prisma.InputJsonValue) : undefined,
+      testimonials: data.testimonials ? (data.testimonials as Prisma.InputJsonValue) : undefined,
     },
   });
 }

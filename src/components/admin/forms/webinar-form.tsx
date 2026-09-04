@@ -7,7 +7,7 @@ import { AdminIcon } from "@/components/admin/admin-icon";
 import { AdminTextArea, AdminTextInput, ImagePickerField, type FieldState } from "@/components/admin/fields";
 import { createWebinar, updateWebinar } from "@/lib/admin/api/webinars";
 import { slugify } from "@/lib/admin/utils/slugify";
-import type { Webinar, WebinarAgendaItem } from "@/lib/admin/types";
+import type { Webinar, WebinarAgendaItem, WebinarMetric, WebinarTestimonial } from "@/lib/admin/types";
 
 type FieldKey = "title" | "tagline" | "dateTime" | "host" | "description" | "registrationLabel" | "registrationUrl";
 type FieldErrors = Partial<Record<FieldKey, string>>;
@@ -31,6 +31,8 @@ export function WebinarForm({ initialWebinar }: { initialWebinar?: Webinar }) {
 
   const [coverImageUrl, setCoverImageUrl] = useState(initialWebinar?.coverImageUrl ?? "");
   const [agenda, setAgenda] = useState<WebinarAgendaItem[]>(initialWebinar?.agenda ?? []);
+  const [metrics, setMetrics] = useState<WebinarMetric[]>(initialWebinar?.metrics ?? []);
+  const [testimonials, setTestimonials] = useState<WebinarTestimonial[]>(initialWebinar?.testimonials ?? []);
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [touched, setTouched] = useState<Partial<Record<FieldKey, boolean>>>({});
   const [submitting, setSubmitting] = useState(false);
@@ -68,6 +70,30 @@ export function WebinarForm({ initialWebinar }: { initialWebinar?: Webinar }) {
     setAgenda((prev) => prev.filter((_, i) => i !== index));
   }
 
+  function addMetric() {
+    setMetrics((prev) => [...prev, { label: "", value: "" }]);
+  }
+
+  function updateMetric(index: number, changes: Partial<WebinarMetric>) {
+    setMetrics((prev) => prev.map((item, i) => (i === index ? { ...item, ...changes } : item)));
+  }
+
+  function removeMetric(index: number) {
+    setMetrics((prev) => prev.filter((_, i) => i !== index));
+  }
+
+  function addTestimonial() {
+    setTestimonials((prev) => [...prev, { name: "", quote: "" }]);
+  }
+
+  function updateTestimonial(index: number, changes: Partial<WebinarTestimonial>) {
+    setTestimonials((prev) => prev.map((item, i) => (i === index ? { ...item, ...changes } : item)));
+  }
+
+  function removeTestimonial(index: number) {
+    setTestimonials((prev) => prev.filter((_, i) => i !== index));
+  }
+
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setFormError("");
@@ -90,6 +116,8 @@ export function WebinarForm({ initialWebinar }: { initialWebinar?: Webinar }) {
       host: data.host,
       description: data.description,
       agenda: agenda.length > 0 ? agenda : undefined,
+      metrics: metrics.length > 0 ? metrics : undefined,
+      testimonials: testimonials.length > 0 ? testimonials : undefined,
       registrationLabel: data.registrationLabel,
       registrationUrl: data.registrationUrl,
     };
@@ -196,6 +224,102 @@ export function WebinarForm({ initialWebinar }: { initialWebinar?: Webinar }) {
                 >
                   <AdminIcon icon="trash" className="h-4 w-4" />
                 </button>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div>
+        <div className="flex items-center justify-between">
+          <label className="text-sm font-medium text-text-primary">Trust Metrics (optional)</label>
+          <button
+            type="button"
+            onClick={addMetric}
+            className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-green-700 hover:text-green-800"
+          >
+            <AdminIcon icon="plus" className="h-3.5 w-3.5" />
+            Add Metric
+          </button>
+        </div>
+        <p className="mt-1 text-xs text-text-tertiary">
+          Shown as a trust-bar stat strip. Leave empty to hide this section entirely.
+        </p>
+        {metrics.length > 0 && (
+          <div className="mt-3 space-y-2">
+            {metrics.map((item, index) => (
+              <div key={index} className="flex items-center gap-2 rounded-[2px] border border-border-primary p-3">
+                <input
+                  type="text"
+                  placeholder="482"
+                  value={item.value}
+                  onChange={(e) => updateMetric(index, { value: e.target.value })}
+                  className="h-9 w-28 shrink-0 rounded-[2px] border border-border-primary bg-surface-primary px-3 text-sm text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-700"
+                />
+                <input
+                  type="text"
+                  placeholder="Students Enrolled"
+                  value={item.label}
+                  onChange={(e) => updateMetric(index, { label: e.target.value })}
+                  className="h-9 flex-1 rounded-[2px] border border-border-primary bg-surface-primary px-3 text-sm text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-700"
+                />
+                <button
+                  type="button"
+                  onClick={() => removeMetric(index)}
+                  className="text-text-tertiary transition-colors hover:text-red-600"
+                  aria-label="Remove metric"
+                >
+                  <AdminIcon icon="trash" className="h-4 w-4" />
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div>
+        <div className="flex items-center justify-between">
+          <label className="text-sm font-medium text-text-primary">Testimonials (optional)</label>
+          <button
+            type="button"
+            onClick={addTestimonial}
+            className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-green-700 hover:text-green-800"
+          >
+            <AdminIcon icon="plus" className="h-3.5 w-3.5" />
+            Add Testimonial
+          </button>
+        </div>
+        <p className="mt-1 text-xs text-text-tertiary">
+          Real testimonials only — leave empty to hide this section entirely.
+        </p>
+        {testimonials.length > 0 && (
+          <div className="mt-3 space-y-2">
+            {testimonials.map((item, index) => (
+              <div key={index} className="space-y-2 rounded-[2px] border border-border-primary p-3">
+                <div className="flex items-center gap-2">
+                  <input
+                    type="text"
+                    placeholder="Name"
+                    value={item.name}
+                    onChange={(e) => updateTestimonial(index, { name: e.target.value })}
+                    className="h-9 flex-1 rounded-[2px] border border-border-primary bg-surface-primary px-3 text-sm text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-700"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => removeTestimonial(index)}
+                    className="text-text-tertiary transition-colors hover:text-red-600"
+                    aria-label="Remove testimonial"
+                  >
+                    <AdminIcon icon="trash" className="h-4 w-4" />
+                  </button>
+                </div>
+                <textarea
+                  placeholder="Quote"
+                  rows={2}
+                  value={item.quote}
+                  onChange={(e) => updateTestimonial(index, { quote: e.target.value })}
+                  className="w-full rounded-[2px] border border-border-primary bg-surface-primary px-3 py-2 text-sm text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-700"
+                />
               </div>
             ))}
           </div>

@@ -95,6 +95,8 @@ model Webinar {
   host              String
   description       String
   agenda            Json?
+  metrics           Json?
+  testimonials      Json?
   registrationLabel String
   registrationUrl   String
   createdAt         DateTime @default(now())
